@@ -5,23 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wayne Chat</title>
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <!-- Header -->
   <header class="header">
-    <button id="menuBtn" class="menu-btn">☰</button>
+    <button id="menuBtn" class="menu-btn"><i data-lucide="menu"></i></button>
     <h1 class="title">Wayne</h1>
-    <button id="settingsBtn" class="settings-btn">⚙</button>
+    <button id="settingsBtn" class="settings-btn"><i data-lucide="settings"></i></button>
   </header>
 
   <!-- Sidebar -->
-  <aside id="sidebar" class="sidebar hidden">
+  <aside id="sidebar" class="sidebar">
     <ul>
-      <li><button onclick="newChat()">📝 New Chat</button></li>
-      <li><button onclick="viewHistory()">📜 History</button></li>
-      <li><button onclick="clearChat()">🗑 Clear</button></li>
+      <li><button onclick="newChat()"><i data-lucide="plus-circle"></i> New Chat</button></li>
+      <li><button onclick="viewHistory()"><i data-lucide="history"></i> History</button></li>
+      <li><button onclick="clearChat()"><i data-lucide="trash-2"></i> Clear</button></li>
     </ul>
   </aside>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
 
   <!-- Chat Body -->
   <main id="chatBody" class="chat-body">
@@ -31,10 +37,14 @@
   <!-- Chat Input -->
   <footer class="chat-input">
     <input id="userInput" type="text" placeholder="မေးချင်တာ ရိုက်ပါ..." />
-    <input type="file" id="photoUpload" accept="image/*">
-    <button onclick="sendMessage()" class="send-btn">➤</button>
+    <label for="photoUpload" class="upload-btn"><i data-lucide="image"></i></label>
+    <input type="file" id="photoUpload" accept="image/*" hidden>
+    <button onclick="sendMessage()" class="send-btn"><i data-lucide="send"></i></button>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="js/chat.js"></script>
+  <script>
+    lucide.createIcons(); // render icons
+  </script>
 </body>
 </html>
