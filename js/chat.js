@@ -1,26 +1,33 @@
 // Sidebar Toggle
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
 
 menuBtn.addEventListener("click", () => {
   sidebar.classList.toggle("show");
+  overlay.classList.toggle("active");
+});
+
+overlay.addEventListener("click", () => {
+  sidebar.classList.remove("show");
+  overlay.classList.remove("active");
 });
 
 // Chat Logic
 function sendMessage() {
   const input = document.getElementById("userInput");
   const msg = input.value.trim();
-  if (msg === "") return;
+  if (!msg) return;
 
   addMessage(msg, "user");
   input.value = "";
 
-  // Bot reply
   setTimeout(() => {
-    let reply = "ဟုတ်ကဲ့ ဘာကူညီရမလဲ";
-    if (msg.toLowerCase() !== "hi") reply = "မေးချင်တာကို နည်းနည်းရှင်းပြပါ 🧐";
+    let reply = msg.toLowerCase() === "hi"
+      ? "ဟုတ်ကဲ့ ဘာကူညီရမလဲ"
+      : "မေးချင်တာကို နည်းနည်းပိုရှင်းပြပါ 🧐";
     addMessage(reply, "bot");
-  }, 600);
+  }, 500);
 }
 
 function addMessage(text, sender) {
@@ -37,7 +44,7 @@ function newChat() {
   document.getElementById("messages").innerHTML = "";
 }
 function viewHistory() {
-  alert("History view placeholder");
+  alert("History view feature is under development");
 }
 function clearChat() {
   document.getElementById("messages").innerHTML = "";
