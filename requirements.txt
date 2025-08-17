@@ -1,2 +1,1 @@
-# Add Python packages if needed
-# For this basic example, no packages required
+# No extra packages needed for this basic example
