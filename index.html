@@ -1,51 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wayne's Personal Website</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f0f8ff; }
-    header { background:#0077b6; color:white; padding:20px; text-align:center; }
-    nav a { margin:0 15px; color:white; font-weight:bold; }
-    main { max-width:900px; margin:30px auto; padding:0 15px; }
-    .card { background:#fff; padding:20px; margin:15px 0; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    footer { text-align:center; padding:20px; background:#023e8a; color:white; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wayne Chat</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Header -->
+  <header class="header">
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <h1 class="title">Wayne</h1>
+    <button id="settingsBtn" class="settings-btn">⚙</button>
+  </header>
 
-<header>
-  <h1>Wayne</h1>
-  <p>Web Developer & AI Enthusiast</p>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar hidden">
+    <ul>
+      <li><button onclick="newChat()">📝 New Chat</button></li>
+      <li><button onclick="viewHistory()">📜 History</button></li>
+      <li><button onclick="clearChat()">🗑 Clear</button></li>
+    </ul>
+  </aside>
 
-<main>
-<section id="about">
-  <h2>About Me</h2>
-  <p>Hello! I'm Wayne, a passionate web developer and AI enthusiast.</p>
-</section>
+  <!-- Chat Body -->
+  <main id="chatBody" class="chat-body">
+    <div id="messages" class="messages"></div>
+  </main>
 
-<section id="projects">
-  <h2>My Projects</h2>
-  {{projects}}
-</section>
+  <!-- Chat Input -->
+  <footer class="chat-input">
+    <input id="userInput" type="text" placeholder="မေးချင်တာ ရိုက်ပါ..." />
+    <input type="file" id="photoUpload" accept="image/*">
+    <button onclick="sendMessage()" class="send-btn">➤</button>
+  </footer>
 
-<section id="contact">
-  <h2>Contact Me</h2>
-  <p>Email: <a href="mailto:wayne@example.com">wayne@example.com</a></p>
-  <p>GitHub: <a href="https://github.com/wayne" target="_blank">github.com/wayne</a></p>
-</section>
-</main>
-
-<footer>
-  <p>© {{current_year}} Wayne. All rights reserved.</p>
-</footer>
-
+  <script src="js/script.js"></script>
 </body>
 </html>
