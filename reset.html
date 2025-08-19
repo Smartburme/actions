@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Aung Myo Kyaw</title>
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-day auth-page">
+  <main class="auth card">
+    <h2>Login</h2>
+    
+    <label>Email
+      <input id="login-email" type="email" placeholder="you@example.com" />
+    </label>
+    
+    <label>Password
+      <input id="login-password" type="password" placeholder="••••••••" />
+    </label>
+    
+    <button id="do-login" class="btn">Login</button>
+    
+    <button id="google-login" class="btn outline">Google ဖြင့်ဝင်မည်</button>
+    
+    <div class="auth-links">
+      <a class="link" href="reset.html">Password မေ့နေပါသလား?</a>
+      <a class="link" href="register.html">Account အသစ်ဖွင့်ရန်</a>
+    </div>
+    
+    <a class="link" href="index.html">မူလစာမျက်နှာသို့</a>
+  </main>
+
+  <script src="js/firebase.config.js"></script>
+  <script>
+    // Firebase initialization
+    const app = firebase.initializeApp(firebaseConfig);
+    
+    document.getElementById('do-login').addEventListener('click', () => {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      
+      if (!email || !password) {
+        alert('ကျေးဇူးပြု၍ အီးမေးလ်နှင့် password ထည့်ပါ');
+        return;
+      }
+      
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Login ဝင်ရာတွင် အမှားတစ်ခုဖြစ်နေပါသည်: ' + error.message);
+        });
+    });
+    
+    // Google login
+    document.getElementById('google-login').addEventListener('click', () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      
+      firebase.auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          // Google sign-in successful
+          window.location.href = "dashboard.html";
+        }).catch((error) => {
+          console.error('Error:', error);
+          alert('Google login ဝင်ရာတွင် အမှားတစ်ခုဖြစ်နေပါသည်');
+        });
+    });
+  </script>
+</body>
+</html>
