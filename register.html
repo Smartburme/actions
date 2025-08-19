@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register / Login — Aung Myo Kyaw</title>
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-day auth-page">
+  <main class="auth card">
+    <h2>Register / Login</h2>
+    <label>Email
+      <input id="email" type="email" placeholder="you@example.com" />
+    </label>
+    <label>Password
+      <input id="password" type="password" placeholder="••••••••" />
+    </label>
+    <div class="row">
+      <button id="do-register" class="btn">Create Account</button>
+      <button id="do-login" class="btn ghost">Login</button>
+    </div>
+    <button id="google" class="btn outline">Continue with Google</button>
+    <p class="muted small">Firebase config ကို js/firebase.config.js ထဲမှာထည့်ပြီးမှ အလုပ်လုပ်ပါမယ်။</p>
+    <a class="link" href="index.html">Back to Home</a>
+  </main>
+
+  <script src="js/ui.js"></script>
+  <script src="js/firebase.config.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

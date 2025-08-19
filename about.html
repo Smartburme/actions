@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Aung Myo Kyaw</title>
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-day">
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="assets/logo.svg" class="logo" alt="Logo" />
+      <span class="brand">About</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="chat.html">Chat</a>
+      <a href="group.html">Group</a>
+      <a href="about.html" class="active">About</a>
+    </nav>
+    <div class="nav-right">
+      <button id="theme-toggle" aria-label="Toggle Theme">🌙</button>
+      <a href="register.html" class="btn small" id="auth-link">Login</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Aung Myo Kyaw</h2>
+      <p>Personal website + mini social features. Color theme is Sea Blue with gray background. Day text is white. Night mode text is light green.</p>
+      <ul>
+        <li>Home: public posts with like, comment, share</li>
+        <li>Chat: member public chat</li>
+        <li>Group: public chat + voice demo</li>
+        <li>Register: Firebase Auth (email/password + Google)</li>
+      </ul>
+      <p class="muted">Source code structure, setup guide, and Firebase wiring are in README.md.</p>
+    </section>
+  </main>
+
+  <script src="js/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Public Chat — Aung Myo Kyaw</title>
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-day">
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="assets/logo.svg" class="logo" alt="Logo" />
+      <span class="brand">Public Chat</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="chat.html" class="active">Chat</a>
+      <a href="group.html">Group</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav-right">
+      <button id="theme-toggle" aria-label="Toggle Theme">🌙</button>
+      <a href="register.html" class="btn small" id="auth-link">Login</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="chat card">
+      <div id="chat-stream" class="chat-stream"></div>
+      <div class="chat-input">
+        <input id="chat-message" placeholder="မက်ဆေ့ချ်ရေး..." />
+        <button id="send" class="btn">Send</button>
+      </div>
+    </section>
+    <p class="muted">
+      Realtime သည် Firebase ချိတ်ဆက်ပြီးမှ တကယ် လိုက်ဖြစ်ပါမယ်။ ယခု demo သည် localStorage ကို သုံးထားသည်။
+    </p>
+  </main>
+
+  <script src="js/ui.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

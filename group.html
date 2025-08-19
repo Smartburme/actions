@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Group & Voice — Aung Myo Kyaw</title>
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-day">
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="assets/logo.svg" class="logo" alt="Logo" />
+      <span class="brand">Group & Voice</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="chat.html">Chat</a>
+      <a href="group.html" class="active">Group</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav-right">
+      <button id="theme-toggle" aria-label="Toggle Theme">🌙</button>
+      <a href="register.html" class="btn small" id="auth-link">Login</a>
+    </div>
+  </header>
+
+  <main class="container grid-2">
+    <section class="card">
+      <h3>Public Group Chat</h3>
+      <div id="group-stream" class="chat-stream"></div>
+      <div class="chat-input">
+        <input id="group-message" placeholder="Group message..." />
+        <button id="group-send" class="btn">Send</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Voice Room (Demo)</h3>
+      <p class="muted">WebRTC အသုံးပြုမည့် Voice Feature အတွက် signaling server မပါသေးပါ။ ယခုပုံစံမှာ မိုက်ကရိုဖုန်းအသံကို သုံးစွဲသူမိမိဘက်မှာသာ play ပြထားပါတယ် (loopback test).</p>
+      <div class="voice-controls">
+        <button id="start-voice" class="btn">🎙 Start Mic</button>
+        <button id="stop-voice" class="btn ghost">⏹ Stop</button>
+      </div>
+      <audio id="voice-audio" autoplay></audio>
+    </section>
+  </main>
+
+  <script src="js/ui.js"></script>
+  <script src="js/group.js"></script>
+</body>
+</html>
