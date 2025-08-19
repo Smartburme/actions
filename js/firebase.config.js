@@ -7,11 +7,10 @@
 */
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
-};
+    apiKey: "AIzaSyAr7Hv2ApKtNTxF11MhT5cuWeg_Dgsh0TY",
+    authDomain: "smart-burme-app.firebaseapp.com",
+    projectId: "smart-burme-app",
+    storageBucket: "smart-burme-app.appspot.com",
+    messagingSenderId: "851502425686",
+    appId: "1:851502425686:web:f29e0e1dfa84794b4abdf7"
+  };
