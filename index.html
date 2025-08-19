@@ -1,25 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aung Myo Kyaw Social</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aung Myo Kyaw â€” Home</title>
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="theme-color" content="#0096C7" />
 </head>
-<body class="day">
-  <nav class="navbar">
-    <h1>AMK Social</h1>
-    <a href="pages/home.html">Home</a>
-    <a href="pages/chat.html">Chat</a>
-    <a href="pages/group.html">Group</a>
-    <a href="pages/register.html">Register</a>
-    <a href="pages/about.html">About</a>
-    <button id="themeToggle">🌞/🌙</button>
-  </nav>
-  <main>
-    <h2>Welcome to AMK Social</h2>
-    <p>Personal social platform for Aung Myo Kyaw.</p>
+<body class="theme-day">
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="assets/logo.svg" class="logo" alt="Logo" />
+      <span class="brand">Aung Myo Kyaw</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="chat.html">Chat</a>
+      <a href="group.html">Group</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav-right">
+      <button id="theme-toggle" aria-label="Toggle Theme">ðŸŒ™</button>
+      <a href="register.html" class="btn small" id="auth-link">Login</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="composer card">
+      <div class="composer-row">
+        <img src="assets/logo.svg" class="avatar" alt="avatar" />
+        <textarea id="post-text" placeholder="á€™á€­á€™á€­á€á€½á€±á€¸á€á€±á€«á€ºá€á€»á€€á€ºá€€á€­á€¯ á€™á€»á€¾á€á€±á€•á€«..."></textarea>
+      </div>
+      <div class="composer-actions">
+        <label class="file-btn">
+          ðŸ“· <input type="file" id="post-image" accept="image/*" hidden />
+        </label>
+        <button id="publish" class="btn">Post</button>
+      </div>
+    </section>
+
+    <section id="feed" class="feed"></section>
   </main>
-  <script src="script.js"></script>
+
+  <footer class="footer">Â© <span id="year"></span> Aung Myo Kyaw â€” Mini Social</footer>
+
+  <script src="js/ui.js"></script>
+  <script src="js/post.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
