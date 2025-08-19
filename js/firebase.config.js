@@ -1,4 +1,4 @@
-/* Firebase config placeholder.
+/Firebase config placeholder.
    1) Replace with your own config from Firebase console.
    2) Include Firebase scripts in register.html HEAD when ready:
       <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
