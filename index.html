@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading - Aung Myo Kyaw</title>
+  <link rel="icon" href="assets/logo.svg" />
+  <style>
+    /* Variables */
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --success: #06d6a0;
+      --danger: #ef476f;
+      --warning: #ffd166;
+      --dark: #1e1e2c;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --border-radius: 12px;
+      --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .loader-container {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Animated Logo */
+    .logo-container {
+      margin-bottom: 2rem;
+      perspective: 1000px;
+    }
+
+    .animated-logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      position: relative;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .logo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: pulse 2s ease-in-out infinite alternate;
+    }
+
+    .logo-inner::before {
+      content: "";
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      background-image: url('assets/logo.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      animation: rotate 8s linear infinite;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 300px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      margin: 2rem auto;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+      border-radius: 10px;
+      animation: loading 2.5s ease-in-out forwards;
+    }
+
+    /* Loading Text */
+    .loading-text {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .loading-dots {
+      display: inline-block;
+    }
+
+    .loading-dots::after {
+      content: "";
+      animation: dots 1.5s infinite;
+    }
+
+    /* Brand Text */
+    .brand-text {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out 0.5s forwards;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Background Elements */
+    .bg-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .bg-element {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .bg-element:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .bg-element:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      left: 80%;
+      animation-delay: 1s;
+    }
+
+    .bg-element:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 70%;
+      left: 15%;
+      animation-delay: 2s;
+    }
+
+    .bg-element:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      top: 15%;
+      left: 75%;
+      animation-delay: 3s;
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(5deg); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); }
+      100% { transform: scale(1.05); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); }
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes loading {
+      0% { width: 0%; }
+      20% { width: 20%; }
+      50% { width: 50%; }
+      80% { width: 80%; }
+      100% { width: 100%; }
+    }
+
+    @keyframes dots {
+      0%, 20% { content: "."; }
+      40% { content: ".."; }
+      60%, 100% { content: "..."; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .animated-logo {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .progress-container {
+        width: 250px;
+      }
+      
+      .brand-text {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-elements">
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+  </div>
+
+  <div class="loader-container">
+    <div class="logo-container">
+      <div class="animated-logo">
+        <div class="logo-inner"></div>
+      </div>
+    </div>
+    
+    <div class="loading-text">
+      လုပ်ဆောင်နေပါသည်<span class="loading-dots"></span>
+    </div>
+    
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+    
+    <div class="brand-text">Aung Myo Kyaw</div>
+  </div>
+
+  <script>
+    // Redirect after loading animation completes
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 3500); // Matches the animation duration
+  </script>
+</body>
+</html>
