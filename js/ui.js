@@ -25,4 +25,4 @@
     localStorage.removeItem('demo_user');
     location.href = 'index.html';
   });
-})();
+})(); 
