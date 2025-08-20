@@ -2,7 +2,7 @@
 
 
 ---
-
+```
 Project Structure (ဖိုင်အဆင့်)
 
 travel-webapp/
@@ -241,6 +241,7 @@ A responsive web app for travel guidance using Mistral-7B-Instruct-v0.2 AI model
 
 
 ---
+```
 
 ✅ ဒီ structure ကိုသင့် local machine မှာ travel-webapp folder ထဲသို့ save လုပ်ပြီး zip ဖိုင်အဖြစ် compress လုပ်နိုင်ပါတယ်။
 သင့်ရဲ့ OpenAI API key ကိုသင့်အတွက် secure အနေနဲ့ .env ဖိုင်မှ load လုပ်သုံးရင်ပိုသေချာပါမယ်။
