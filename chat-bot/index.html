@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Chat App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Travel Chat</h1>
+  <nav>
+    <button id="menu-btn">Menu</button>
+    <button id="title-btn">Title</button>
+    <button id="setting-btn">Setting</button>
+    <button id="chat-btn">Chat Page</button>
+    <button id="upload-btn">Upload Photos</button>
+    <button id="history-btn">Chat History</button>
+    <button id="clear-btn">Clear</button>
+    <button id="about-btn">About</button>
+  </nav>
+</header>
+
+<main>
+  <div id="chat-container">
+    <div id="messages"></div>
+    <textarea id="user-input" placeholder="Type your message..."></textarea>
+    <button id="send-btn">Send</button>
+  </div>
+  <div id="upload-container" class="hidden">
+    <input type="file" id="photo-upload" multiple>
+    <div id="preview"></div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
