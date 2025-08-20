@@ -12,11 +12,9 @@ travel-webapp/
 ├─ package.json
 └─ README.md
 
-
----
-
+```
 index.html
-
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,12 +53,9 @@ index.html
 <script src="script.js"></script>
 </body>
 </html>
-
-
----
-
+```
 style.css
-
+```
 /* Basic reset */
 * {
   margin: 0;
@@ -143,12 +138,9 @@ main {
     flex-wrap: wrap;
   }
 }
-
-
----
-
+```
 script.js
-
+```
 const sendBtn = document.getElementById('send-btn');
 const userInput = document.getElementById('user-input');
 const messages = document.getElementById('messages');
@@ -205,12 +197,9 @@ photoUpload.addEventListener('change', () => {
     preview.appendChild(img);
   });
 });
-
-
----
-
+```
 package.json
-
+```
 {
   "name": "travel-webapp",
   "version": "1.0.0",
@@ -223,12 +212,9 @@ package.json
     "openai": "^5.2.0"
   }
 }
-
-
----
-
+```
 README.md
-
+```
 # Travel Chat WebApp
 A responsive web app for travel guidance using Mistral-7B-Instruct-v0.2 AI model.
 
@@ -238,9 +224,6 @@ A responsive web app for travel guidance using Mistral-7B-Instruct-v0.2 AI model
 - Chat history and clear chat
 - About section
 - Mobile and Desktop friendly
-
-
----
 ```
 
 ✅ ဒီ structure ကိုသင့် local machine မှာ travel-webapp folder ထဲသို့ save လုပ်ပြီး zip ဖိုင်အဖြစ် compress လုပ်နိုင်ပါတယ်။
