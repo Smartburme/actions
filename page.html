@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burme Chat - Social Media Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --accent-color: #ff006e;
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+            --light-text: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+        
+        /* Header Styles */
+        .app-header {
+            background: var(--gradient);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .app-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        /* 3D Floating Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 25px;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            perspective: 1000px;
+        }
+        
+        .nav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .nav-btn i {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-5px) rotateX(10deg);
+            background-color: rgba(58, 134, 255, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .nav-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px) rotateX(10deg);
+        }
+        
+        /* Main Content Area */
+        .content-area {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        /* Post Styles */
+        .post {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .post-user-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .post-content {
+            margin: 15px 0;
+        }
+        
+        .post-image {
+            width: 100%;
+            border-radius: 10px;
+            margin: 10px 0;
+            max-height: 400px;
+            object-fit: cover;
+        }
+        
+        .post-video {
+            width: 100%;
+            border-radius: 10px;
+            margin: 10px 0;
+            max-height: 400px;
+        }
+        
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .action-btn i {
+            margin-right: 5px;
+        }
+        
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Friends List Styles */
+        .friend-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+        
+        .friend-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .friend-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .status-online {
+            background-color: #4cd137;
+        }
+        
+        .status-offline {
+            background-color: #e84118;
+        }
+        
+        .status-unread {
+            background-color: var(--accent-color);
+        }
+        
+        .unread-count {
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            margin-left: auto;
+        }
+        
+        /* Group List Styles */
+        .group-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .group-tab {
+            flex: 1;
+            padding: 15px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s;
+        }
+        
+        .group-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .group-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+        }
+        
+        .group-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2a75ff;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        /* Modal/Dialog Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Three dot menu */
+        .post-menu {
+            position: relative;
+            margin-left: auto;
+        }
+        
+        .dot-menu {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 5px;
+        }
+        
+        .menu-options {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            width: 150px;
+            overflow: hidden;
+        }
+        
+        .menu-option {
+            padding: 12px;
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .menu-option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Upload Styles */
+        .upload-container {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .upload-container:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .bottom-nav {
+                width: 95%;
+                padding: 10px;
+            }
+            
+            .content-area {
+                padding: 10px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+        
+        /* Voice Chat UI (Clover.space inspired) */
+        .voice-chat-container {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            margin-top: 20px;
+        }
+        
+        .participants-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .participant {
+            background: #2d2d2d;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .participant-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 10px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .voice-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .voice-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #3a3a3a;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .voice-btn.leave {
+            background: var(--accent-color);
+        }
+        
+        /* About Page Styles */
+        .about-content {
+            line-height: 1.6;
+        }
+        
+        .about-content h3 {
+            margin: 20px 0 10px;
+            color: var(--primary-color);
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feature-list li:before {
+            content: "✓ ";
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header">
+        <h1>Burme Chat</h1>
+        <p>Connect with friends and communities</p>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="content-area">
+        <!-- Home/Public Post Section -->
+        <section id="home-section" class="section active">
+            <div class="card">
+                <h2><i class="fas fa-home"></i> Public Posts</h2>
+                <div class="form-group">
+                    <textarea class="form-input" placeholder="What's on your mind?" rows="3" id="post-content"></textarea>
+                </div>
+                <div class="upload-container" id="media-upload">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <p>Click to upload photos or videos (max 10 minutes)</p>
+                    <input type="file" id="media-input" accept="image/*,video/*" style="display: none;">
+                </div>
+                <button class="btn btn-primary btn-block" id="create-post-btn">
+                    <i class="fas fa-paper-plane"></i> Post
+                </button>
+            </div>
+            
+            <div id="posts-container">
+                <!-- Posts will be loaded here -->
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://ui-avatars.com/api/?name=User+One&background=3a86ff&color=fff" class="post-user-img" alt="User">
+                        <div>
+                            <strong>User One</strong>
+                            <div class="post-time">2 hours ago</div>
+                        </div>
+                        <div class="post-menu">
+                            <button class="dot-menu">⋯</button>
+                            <div class="menu-options">
+                                <button class="menu-option" data-action="edit"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="menu-option" data-action="delete"><i class="fas fa-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>This is a sample post content. Hello everyone! Welcome to Burme Chat.</p>
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-btn"><i class="fas fa-heart"></i> Like (15)</button>
+                        <button class="action-btn"><i class="fas fa-comment"></i> Comment (3)</button>
+                        <button class="action-btn"><i class="fas fa-share"></i> Share (2)</button>
+                    </div>
+                </div>
+                
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://ui-avatars.com/api/?name=User+Two&background=8338ec&color=fff" class="post-user-img" alt="User">
+                        <div>
+                            <strong>User Two</strong>
+                            <div class="post-time">5 hours ago</div>
+                        </div>
+                        <div class="post-menu">
+                            <button class="dot-menu">⋯</button>
+                            <div class="menu-options">
+                                <button class="menu-option" data-action="edit"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="menu-option" data-action="delete"><i class="fas fa-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Check out this beautiful landscape photo from my recent trip!</p>
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" class="post-image" alt="Landscape">
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-btn"><i class="fas fa-heart"></i> Like (42)</button>
+                        <button class="action-btn"><i class="fas fa-comment"></i> Comment (7)</button>
+                        <button class="action-btn"><i class="fas fa-share"></i> Share (5)</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Friends Section -->
+        <section id="friends-section" class="section">
+            <div class="card">
+                <h2><i class="fas fa-user-friends"></i> Friends</h2>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Search friends...">
+                </div>
+            </div>
+            
+            <div id="friends-list">
+                <div class="friend-item">
+                    <span class="friend-status status-online"></span>
+                    <img src="https://ui-avatars.com/api/?name=Alice+Johnson&background=ff006e&color=fff" class="post-user-img" alt="Friend">
+                    <div>
+                        <strong>Alice Johnson</strong>
+                        <div class="post-time">Onl
