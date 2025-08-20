@@ -1,4 +1,4 @@
-/* Basic reset */
+/* Basic Reset */
 * {
   margin: 0;
   padding: 0;
@@ -8,22 +8,41 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
-  color: #333;
 }
 
-header {
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Title Bar */
+.title-bar {
   background-color: #0066cc;
   color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #004494;
+  display: flex;
+  flex-direction: column;
   padding: 10px;
 }
 
-header h1 {
-  margin-bottom: 10px;
-}
-
-nav button {
-  margin: 3px;
-  padding: 5px 10px;
+.sidebar button {
+  margin: 5px 0;
+  padding: 10px;
   border: none;
   border-radius: 5px;
   background-color: #005bb5;
@@ -31,52 +50,67 @@ nav button {
   cursor: pointer;
 }
 
-nav button:hover {
-  background-color: #004494;
+.sidebar button:hover {
+  background-color: #003f7f;
 }
 
-main {
-  padding: 20px;
-}
-
-#chat-container {
+/* Chat Body */
+.chat-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  padding: 15px;
+  overflow: hidden;
 }
 
 #messages {
-  height: 300px;
-  overflow-y: auto;
+  flex: 1;
   background-color: white;
   padding: 10px;
   border-radius: 5px;
+  overflow-y: auto;
   border: 1px solid #ccc;
+  margin-bottom: 10px;
 }
 
 #user-input {
   width: 100%;
   padding: 10px;
+  margin-bottom: 5px;
 }
 
 #send-btn {
-  margin-top: 5px;
   padding: 10px;
   background-color: #0066cc;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.hidden {
-  display: none;
+.upload-container {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 600px) {
-  nav {
-    display: flex;
-    flex-wrap: wrap;
+#preview img {
+  width: 80px;
+  margin: 5px;
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .sidebar button {
+    flex: 1;
+    margin: 3px;
   }
 }
