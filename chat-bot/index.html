@@ -3,35 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel Chat App</title>
+<title>Wayne Ai</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>Travel Chat</h1>
-  <nav>
-    <button id="menu-btn">Menu</button>
-    <button id="title-btn">Title</button>
-    <button id="setting-btn">Setting</button>
-    <button id="chat-btn">Chat Page</button>
-    <button id="upload-btn">Upload Photos</button>
-    <button id="history-btn">Chat History</button>
-    <button id="clear-btn">Clear</button>
-    <button id="about-btn">About</button>
-  </nav>
-</header>
+<div class="container">
 
-<main>
-  <div id="chat-container">
-    <div id="messages"></div>
-    <textarea id="user-input" placeholder="Type your message..."></textarea>
-    <button id="send-btn">Send</button>
+  <!-- Title Bar -->
+  <header class="title-bar">
+    <h1>Wayne Ai</h1>
+  </header>
+
+  <!-- Sidebar + Chat Body -->
+  <div class="main-content">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <button id="new-chat">New Chat</button>
+      <button id="chat-history">Chat History View</button>
+      <button id="clear-chat">Clear</button>
+      <button id="settings">Setting</button>
+    </aside>
+
+    <!-- Chat Body -->
+    <section class="chat-body">
+      <div id="messages"></div>
+      <textarea id="user-input" placeholder="Type your message..."></textarea>
+      <button id="send-btn">Send</button>
+
+      <!-- Upload Photos -->
+      <div class="upload-container">
+        <input type="file" id="photo-upload" multiple>
+        <div id="preview"></div>
+      </div>
+    </section>
   </div>
-  <div id="upload-container" class="hidden">
-    <input type="file" id="photo-upload" multiple>
-    <div id="preview"></div>
-  </div>
-</main>
+</div>
 
 <script src="script.js"></script>
 </body>
